@@ -1,0 +1,125 @@
+{% extends 'faults/base.html' %}
+{% load static %}
+
+{% block link %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <Link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></Link>
+{% endblock  %}
+
+{% block script %}
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script defer src={% static 'js/static.js' %}></script>
+{% endblock%}
+
+{% block page_title %}
+    Müşteri Detay
+{% endblock  %}
+
+{% block content %}
+
+    <button class="btn btn-block my-3 sticky-top">
+      <a href="{% url 'customers_page'%}" style="color: #2c333a;"><i class="bi bi-arrow-left-circle-fill" style="font-size: 1.5rem;"></i></a>
+    </button>
+
+    <div class="text-center">
+        <p class="h4 text-secondary">Müşteri Detay</p>
+    </div>
+    
+    <div class="col border d-flex">
+        <form action="" method="post">
+            <div class=" d-flex flex-column" style="width:20rem;">
+                <div class="mx-4 p-3">
+                  <div>
+                    <label htmlFor="defaultLoginName" class="text-muted">
+                      Ad Soyad
+                    </label>
+                    <input type="text" id="defaultLoginName" class="form-control" value="{{customer.name_surname}}" disabled/>
+                  </div>
+                  <div class="mt-3 class="form-floating"">
+                    <label htmlFor="defaultLoginEmail" class="text-muted">
+                      Email
+                    </label>
+                    <input type="email" id="defaultLoginEmail" class="form-control" value="{{customer.email}}" disabled/>
+                  </div>
+                  <div class="mt-3">
+                    <label htmlFor="confirmLoginEmail" class="text-muted">
+                      Telefon
+                    </label>
+                    <input type="text" id="confirmLoginEmail" class="form-control" value="{{customer.phone}}" disabled/>
+                  </div>
+                  <div class="mt-3 class="form-floating"">
+                    <label htmlFor="defaultLoginPassword" class="text-muted">
+                      Adres
+                    </label>
+                    <textarea class="form-control" disabled>{{customer.address}} </textarea>
+                  </div>
+                  <div class="mt-3">
+                    <label htmlFor="confirmLoginEmail" class="text-muted">
+                      Kayıt Tarihi
+                    </label>
+                    <div class="input-group date" id="datepicker">
+                        <input type="text" class="form-control" id="date"/ value="{{customer.record_date}}" disabled>
+                        <span class="input-group-append">
+                          <span class="input-group-text bg-light d-block">
+                            <i class="bi bi-calendar-heart-fill"></i>
+                          </span>
+                        </span>
+                      </div>
+                  </div>
+                  <div class="mt-3">
+                    <label htmlFor="defaultLoginName" class="text-muted">
+                      Durum
+                    </label>
+                    <input type="text" id="defaultLoginName" class="form-control" value="{{customer.status}}" disabled/>
+                  </div>
+                </div>
+              </div>
+        </form>
+        <div class="container pt-5">
+            <div class="text-center ">
+                <p class="text-secondary ">Müşterinin Getirdiği Ürünler</p>
+                <hr>
+            </div>
+            <table id="example" class="table table-bordered table-striped data-table1" style="min-width: 100%">
+                <thead>
+                    <tr>
+                        <th>Ürün Adı</th>
+                        <th>Müşteri Şikayeti</th>
+                        <th>Yapılan İşlemler</th>
+                        <th>Getirdiği Tarih</th>
+                        <th>Tanımlanan Tarih</th>
+                        <th>Fiyat</th>
+                        <th>Durum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <td>{{product.product_name}}</td>
+                        <td>{{product.customer_complaint}}</td>
+                        <td>{{product.transantions_made}}</td>
+                        <td>{{product.record_date}}</td>
+                        <td>{{product.complated_date}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.status}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+{% endblock  %}
+
+{% block js_files %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(function(){
+            $('#datepicker').datepicker();
+        });
+    </script>
+{% endblock  %}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    {% block link %}{% endblock  %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+    {% block script %}{% endblock script %}
+    {% block css_files %}{% endblock  %}
+    <title>{% block page_title %}{% endblock %}</title>
+</head>
+<body>
+    <div class="container-fluid" >
+        <div class="row content">
+
+           <nav class="navbar sticky-top bg-dark border-bottom" data-bs-theme="dark">
+                <div class="container-fluid">
+                  <a class="navbar-brand text-light" href="{% url 'home_page' %}">Teknik Servis</a>
+                </div>
+            </nav>
+
+          <div class="col-sm-2 sidenav bg-dark min-vh-100" style="padding-top:40px">
+            <ul class="nav nav-pills flex-column" >
+              <li class="active d-grid gap-2">
+                <a class="btn btn-dark" href="{% url 'customers_page' %}" role="button">
+                  <i class="bi bi-people-fill" style="font-size: 1rem;"></i>
+                  Müşteriler
+                </a>
+              </li>
+              <li class="d-grid gap-2">
+                <a class="btn btn-dark" href="{% url 'home_page' %}" role="button">
+                  <i class="bi bi-bag-heart-fill" style="font-size: 1rem;"></i>
+                  Ürünler
+                </a>
+              </li>
+            </ul><br>
+          </div>
+
+          <div class="col-sm-10 ">
+            {% block content %}{% endblock  %}
+          </div>
+        </div>
+      </div>
+      
+      <footer class="container-fluid ">
+        <p></p>
+      </footer>
+    {% block js_files %}{% endblock  %}
+
+</body>
+</html>

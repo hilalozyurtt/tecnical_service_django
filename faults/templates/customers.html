@@ -1,0 +1,69 @@
+{% extends 'faults/base.html' %}
+{% load static %}
+
+{% block link %}
+    <Link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"></Link>
+    {% endblock  %}
+
+{% block script %}
+    <script defer src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script defer src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script defer src={% static 'js/static.js' %}></script>
+{% endblock%}
+
+{% block page_title %}
+    Müşteriler
+{% endblock  %}
+
+{% block content %}
+
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <span class="fs-4 d-flex mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">Müşteriler</span>
+        </header>
+    </div>
+
+    <div class="container">
+        <table id="example" class="table table-bordered table-striped data-table1" style="min-width: 100%">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>Email</th>
+                    <th>Telefon</th>
+                    <th>Adres</th>
+                    <th>Kayıt Tarihi</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for customer in customers %}
+                    <tr>
+                        <td>{{customer.name_surname}}</td>
+                        <td>{{customer.email}}</td>
+                        <td>{{customer.phone}}</td>
+                        <td>{{customer.address}}</td>
+                        <td>{{customer.record_date}}</td>
+                        <td>{{customer.status}}</td>
+                        <td>
+                            <div class="d-flex justify-content-around">
+                                <a href="{% url 'delete_customer' customer.slug %}"><i class="bi bi-trash3-fill text-danger"></i></a>
+                                <a href="{% url 'customers_update' customer.slug %}"><i class="bi bi-pencil-fill text-warning"></i></a>
+                                <a href="{% url 'customers_details' customer.slug %}"><i class="bi bi-arrows-fullscreen text-success"></i></a>
+                            </div>
+                        </td>
+                    </tr> 
+                {% endfor %}  
+            </tbody>
+        </table>
+    </div>
+    <div class="container-fluid">
+        <button class="btn btn-white btn-circle btn-circle-lg m-1 float-right" type="button">
+            <a href="{% url 'create_customers' %}" style="color: #2c333a;"><i class="bi bi-plus-circle-fill" style="font-size: 2rem;"></i></a>
+        </button>
+    </div>
+
+{% endblock  %}
+
+{% block js_files %}{% endblock  %}
